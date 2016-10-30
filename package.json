@@ -1,0 +1,19 @@
+{
+  "name": "fxrates",
+  "version": "1.0.0",
+  "description": "Currency Converter Calculator",
+  "main": "index.html",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "lighthouse": "^1.1.6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lighthouse": "node_modules/.bin/lighthouse http://localhost:8080"
+  },
+  "author": "",
+  "license": "ISC"
+}

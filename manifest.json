@@ -1,0 +1,7 @@
+{
+  "name": "fxrates",
+  "short_name": "fxrates",
+  "description": "Currency converter calculator",
+  "start_url": "/",
+  "display": "standalone"
+}
