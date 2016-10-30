@@ -3,7 +3,9 @@
   "description": "Currency converter calculator",
   "main": "index.html",
   "dependencies": {
-    "polymer": "Polymer/polymer"
+    "polymer": "Polymer/polymer",
+    "paper-input": "PolymerElements/paper-input#^1.1.20",
+    "paper-dropdown-menu": "PolymerElements/paper-dropdown-menu#^1.4.1"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",

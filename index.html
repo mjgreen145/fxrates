@@ -5,10 +5,28 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="manifest" href="/manifest.json">
-    <script src="/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
-    <link rel="import" href="/src/fx-app/fx-app.html">
   </head>
   <body>
-    <fx-app></fx-app>
+    <link rel="stylesheet" href="/src/styles/fxrates.css">
+    <h1 class="heading">FX Rates</h1>
+    <div class="sub-heading">The Currency Calculator</div>
+
+    <div class="calculator">
+      <div class="currency-input">
+        <input class="amount-input" value="1,000"/>
+        <select class="currency-select">
+          <option>GBP</option>
+          <option>EUR</option>
+        </select>
+      </div>
+
+      <div class="currency-input">
+        <input class="amount-input" value="1,000"/>
+        <select class="currency-select">
+          <option>GBP</option>
+          <option>EUR</option>
+        </select>
+      </div>
+    </div>
   </body>
 </html>

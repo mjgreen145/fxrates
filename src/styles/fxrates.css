@@ -1,0 +1,51 @@
+html, body {
+  margin: 0;
+}
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  text-align: center;
+}
+
+.heading {
+  font-size: 45px;
+  margin-bottom: 0;
+}
+
+.calculator {
+  max-width: 400px;
+  margin: 30px auto 0;
+}
+
+.currency-input {
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  display: flex;
+}
+
+.amount-input {
+  border: none;
+  padding: 10px;
+  font-size: 25px;
+  margin-left: 5px;
+  border-right: 1px solid #ccc;
+}
+
+.currency-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  border: none;
+  background: none;
+  font-size: 25px;
+  flex-grow: 1;
+  text-align-last: center;
+}
+
+.currency-select::after {
+  content: "&#x25BC;";
+  position: absolute;
+  right: 10px;
+}
