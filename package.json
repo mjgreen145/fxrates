@@ -13,7 +13,8 @@
     "polymer-cli": "^0.17.0"
   },
   "scripts": {
-    "build": "node_modules/.bin/polymer build --insert-dependency-links false && cp manifest.json ./build/bundled",
+    "build": "node_modules/.bin/polymer build --html.collapseWhitespace && cp manifest.json ./build/bundled && npm run stripImport",
+    "stripImport": "sed -i -e 's/<link[^>]*>//' build/bundled/index.html",
     "lighthouse": "node_modules/.bin/lighthouse http://localhost:8080"
   },
   "author": "",
