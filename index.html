@@ -7,26 +7,94 @@
     <link rel="manifest" href="/manifest.json">
   </head>
   <body>
+    <div class="background"></div>
     <link rel="stylesheet" href="/src/styles/fxrates.css">
-    <h1 class="heading">FX Rates</h1>
-    <div class="sub-heading">The Currency Calculator</div>
+    <div class="content">
+      <h1 class="heading">FX Rates</h1>
+      <div class="sub-heading">The Currency Calculator</div>
 
-    <div class="calculator">
-      <div class="currency-input">
-        <input class="amount-input" value="1,000"/>
-        <select class="currency-select">
-          <option>GBP</option>
-          <option>EUR</option>
-        </select>
+      <div class="calculator">
+        <div class="currency-input active">
+          <input id="baseInput" class="amount-input" value="1000"/>
+          <select id="baseCurrency" class="currency-select">
+            <option>GBP</option>
+            <option>EUR</option>
+            <option>USD</option>
+            <option>AUD</option>
+            <option>BGN</option>
+            <option>BRL</option>
+            <option>CAD</option>
+            <option>CHF</option>
+            <option>CNY</option>
+            <option>CZK</option>
+            <option>DKK</option>
+            <option>HKD</option>
+            <option>HRK</option>
+            <option>HUF</option>
+            <option>IDR</option>
+            <option>ILS</option>
+            <option>INR</option>
+            <option>JPY</option>
+            <option>KRW</option>
+            <option>MXN</option>
+            <option>MYR</option>
+            <option>NOK</option>
+            <option>NZD</option>
+            <option>PHP</option>
+            <option>PLN</option>
+            <option>RON</option>
+            <option>RUB</option>
+            <option>SEK</option>
+            <option>SGD</option>
+            <option>THB</option>
+            <option>TRY</option>
+            <option>ZAR</option>
+          </select>
+          <div class="amount-indicator"></div>
+        </div>
+        <div class="amount-indicator-line"></div>
+
+        <div class="currency-input">
+          <input id="quoteInput" class="amount-input"/>
+          <select id="quoteCurrency" class="currency-select">
+            <option>EUR</option>
+            <option>GBP</option>
+            <option>USD</option>
+            <option>AUD</option>
+            <option>BGN</option>
+            <option>BRL</option>
+            <option>CAD</option>
+            <option>CHF</option>
+            <option>CNY</option>
+            <option>CZK</option>
+            <option>DKK</option>
+            <option>HKD</option>
+            <option>HRK</option>
+            <option>HUF</option>
+            <option>IDR</option>
+            <option>ILS</option>
+            <option>INR</option>
+            <option>JPY</option>
+            <option>KRW</option>
+            <option>MXN</option>
+            <option>MYR</option>
+            <option>NOK</option>
+            <option>NZD</option>
+            <option>PHP</option>
+            <option>PLN</option>
+            <option>RON</option>
+            <option>RUB</option>
+            <option>SEK</option>
+            <option>SGD</option>
+            <option>THB</option>
+            <option>TRY</option>
+            <option>ZAR</option>
+          </select>
+          <div class="amount-indicator"></div>
+        </div>
+
       </div>
 
-      <div class="currency-input">
-        <input class="amount-input" value="1,000"/>
-        <select class="currency-select">
-          <option>GBP</option>
-          <option>EUR</option>
-        </select>
-      </div>
-    </div>
+      <script async src="/src/scripts/fxrates.js"></script>
   </body>
 </html>

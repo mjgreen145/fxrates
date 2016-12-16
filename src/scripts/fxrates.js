@@ -1,0 +1,105 @@
+class FXApp {
+    constructor() {
+        this.baseInput = document.getElementById('baseInput');
+        this.quoteInput = document.getElementById('quoteInput');
+
+        this.baseCurrencySelect = document.getElementById('baseCurrency');
+        this.quoteCurrencySelect = document.getElementById('quoteCurrency');
+
+        this.baseCurrency = this.baseCurrencySelect.value;
+        this.quoteCurrency = this.quoteCurrencySelect.value;
+
+        this.rates = {};
+
+        this.addEventListeners();
+
+        // display initial rate
+        this.onInputChange({target: this.baseInput });
+    }
+
+    addEventListeners() {
+        this.baseInput.addEventListener('focus', this.onInputFocus.bind(this));
+        this.quoteInput.addEventListener('focus', this.onInputFocus.bind(this));
+
+        this.baseInput.addEventListener('input', this.onInputChange.bind(this));
+        this.quoteInput.addEventListener('input', this.onInputChange.bind(this));
+
+        this.baseCurrencySelect.addEventListener('change', this.onCurrencySelectChange.bind(this));
+        this.quoteCurrencySelect.addEventListener('change', this.onCurrencySelectChange.bind(this));
+    }
+
+    onInputChange(event) {
+        if (event.target.id === 'baseInput') {
+            this.updateValue(this.quoteInput, event.target.value, this.baseCurrency, this.quoteCurrency);
+        } else {
+            this.updateValue(this.baseInput, event.target.value, this.quoteCurrency, this.baseCurrency);
+        }
+    }
+
+    onInputFocus(event) {
+        if (event.target.id === 'baseInput') {
+            this.baseInput.parentElement.classList.add('active');
+            this.quoteInput.parentElement.classList.remove('active');
+        } else {
+            this.baseInput.parentElement.classList.remove('active');
+            this.quoteInput.parentElement.classList.add('active');
+        }
+    }
+
+    onCurrencySelectChange(event) {
+        if (event.target.id === 'baseCurrency') {
+            this.baseCurrency = event.target.value;
+            this.updateValue(this.quoteInput, this.baseInput.value, this.baseCurrency, this.quoteCurrency);
+        } else {
+            this.quoteCurrency = event.target.value;
+            this.updateValue(this.baseInput, this.quoteInput.value, this.quoteCurrency, this.baseCurrency);
+        }
+    }
+
+    updateValue(inputToUpdate, inputVal, fromCurrency, toCurrency) {
+        if (!inputVal) {
+            return;
+        }
+        inputVal = parseFloat(inputVal.replace(/[^\d\.]/g, ''), 10);
+        console.log(inputVal);
+        if (this.rates[fromCurrency]) {
+            inputToUpdate.value = (this.rates[fromCurrency][toCurrency] * inputVal).toFixed(2).toString();
+        } else {
+            this.fetchRates(fromCurrency).then(() => {
+                inputToUpdate.value = (this.rates[fromCurrency][toCurrency] * inputVal).toFixed(2).toString();
+            });
+        }
+    }
+
+    fetchRates(currency) {
+        return fetch(`https://api.fixer.io/latest?base=${currency}`).then((response) => {
+            return response.json();
+
+        }).then((data) => {
+            this.rates[currency] = data.rates;
+            this.rates[currency][currency] = 1;
+            setTimeout(() => {
+                this.removeRates(currency)
+            }, 300000);
+        });
+    }
+
+    removeRates(currency) {
+        delete this.rates[currency];
+    }
+}
+
+const fxApp = new FXApp();
+
+// Register a service worker
+// if ('serviceWorker' in navigator) {
+//   window.addEventListener('load', function() {
+//     navigator.serviceWorker.register('/sw.js').then(function(registration) {
+//       // Registration was successful
+//       console.log('ServiceWorker registration successful with scope: ', registration.scope);
+//     }).catch(function(err) {
+//       // registration failed :(
+//       console.log('ServiceWorker registration failed: ', err);
+//     });
+//   });
+// }

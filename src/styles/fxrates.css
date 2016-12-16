@@ -7,26 +7,48 @@ body {
   text-align: center;
 }
 
+.background {
+  background-image: linear-gradient(to bottom, #1298d4, #241b5b);
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+}
+
+.content {
+  padding-top: 50px;
+}
+
 .heading {
+  margin: 0;
   font-size: 45px;
   margin-bottom: 0;
+  color: white;
+}
+
+.sub-heading {
+  color: white;
 }
 
 .calculator {
   max-width: 400px;
   margin: 30px auto 0;
+  position: relative;
 }
 
 .currency-input {
+  height: 110px;
   margin: 10px 0;
   border: 1px solid #ccc;
-  border-radius: 6px;
+  border-radius: 5px;
   display: flex;
+  background-color: white;
+  position: relative;
 }
 
 .amount-input {
   border: none;
-  padding: 10px;
+  padding: 20px 20px 20px 50px;
   font-size: 25px;
   margin-left: 5px;
   border-right: 1px solid #ccc;
@@ -44,8 +66,29 @@ body {
   text-align-last: center;
 }
 
-.currency-select::after {
-  content: "&#x25BC;";
+.amount-indicator {
   position: absolute;
-  right: 10px;
+  top: 55px;
+  left: 20px;
+  width: 15px;
+  height: 15px;
+  border: 2px solid #1298d4;
+  border-radius: 15px;
+  background-color: white;
+  margin-top: -8px;
+}
+
+.currency-input.active .amount-indicator {
+  background-color: #1298d4;
+}
+
+.amount-indicator-line {
+  content: '';
+  position: absolute;
+  top: 66px;
+  left: 29px;
+  z-index: 100;
+  width: 3px;
+  height: 106px;
+  background-color: #1298d4;
 }
