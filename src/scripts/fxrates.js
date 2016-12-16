@@ -11,6 +11,8 @@ class FXApp {
 
         this.offlineToast = document.getElementById('offline-toast');
 
+        this.buyButton = document.getElementById('buy-button');
+
         this.rates = {};
 
         this.addEventListeners();
@@ -28,6 +30,8 @@ class FXApp {
 
         this.baseCurrencySelect.addEventListener('change', this.onCurrencySelectChange.bind(this));
         this.quoteCurrencySelect.addEventListener('change', this.onCurrencySelectChange.bind(this));
+
+        this.buyButton.addEventListener('click', this.onButtonClicked.bind(this));
 
         window.addEventListener('offline', this.showOfflineToast.bind(this));
         window.addEventListener('online', this.hideOfflineToast.bind(this));
@@ -102,19 +106,54 @@ class FXApp {
     removeRates(currency) {
         delete this.rates[currency];
     }
+
+    onButtonClicked() {
+        if(window.PaymentRequest) {
+            const methodData = [
+                {
+                    supportedMethods: ['visa', 'mastercard', 'amex']
+                }
+            ];
+            const details = {
+                displayItems: [
+                    {
+                        label: `Currency - ${this.quoteInput.value} ${this.quoteCurrency}`,
+                        amount: {
+                            currency: this.baseCurrency,
+                            value: this.baseInput.value
+                        }
+                    }
+                ],
+                total: {
+                    label: 'Total',
+                    amount: {
+                        currency: this.baseCurrency,
+                        value: this.baseInput.value
+                    }
+                }
+            };
+            console.log(methodData, details);
+            const request = new PaymentRequest(methodData, details);
+            request.show().then((paymentResponse) => {
+                paymentResponse.complete('success');
+            }).catch((error) => {
+                console.error('Uh oh, something bad happened', error.message);
+            });
+        }
+    }
 }
 
 const fxApp = new FXApp();
 
 // Register a service worker
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function() {
-    navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
-      // Registration was successful
-      console.log('ServiceWorker registration successful with scope: ', registration.scope);
-    }).catch(function(err) {
-      // registration failed :(
-      console.log('ServiceWorker registration failed: ', err);
-    });
-  });
-}
+// if ('serviceWorker' in navigator) {
+//   window.addEventListener('load', function() {
+//     navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
+//       // Registration was successful
+//       console.log('ServiceWorker registration successful with scope: ', registration.scope);
+//     }).catch(function(err) {
+//       // registration failed :(
+//       console.log('ServiceWorker registration failed: ', err);
+//     });
+//   });
+// }

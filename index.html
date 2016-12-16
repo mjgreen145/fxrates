@@ -19,7 +19,7 @@
 
       <div class="calculator">
         <div class="currency-input active">
-          <input id="baseInput" class="amount-input" value="1000"/>
+          <input id="baseInput" class="amount-input" value="1000" type="number"/>
           <select id="baseCurrency" class="currency-select">
             <option>GBP</option>
             <option>EUR</option>
@@ -59,7 +59,7 @@
         <div class="amount-indicator-line"></div>
 
         <div class="currency-input">
-          <input id="quoteInput" class="amount-input"/>
+          <input id="quoteInput" class="amount-input" type="number"/>
           <select id="quoteCurrency" class="currency-select">
             <option>EUR</option>
             <option>GBP</option>
@@ -96,11 +96,11 @@
           </select>
           <div class="amount-indicator"></div>
         </div>
-
+        <button class="buy-button" id="buy-button">
+          Buy Now!
+        </button>
       </div>
-
     </div>
-
     <div class="toast" id="offline-toast">
       You appear to be offline, please reconnect and try again
     </div>
