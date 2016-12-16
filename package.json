@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "Currency Converter Calculator",
   "main": "index.html",
-  "directories": {
-    "test": "test"
-  },
   "dependencies": {},
   "devDependencies": {
     "firebase-tools": "^3.2.0",
@@ -15,7 +12,8 @@
   "scripts": {
     "build": "node_modules/.bin/polymer build --html.collapseWhitespace && cp manifest.json ./build/bundled && npm run stripImport",
     "stripImport": "sed -i -e 's/<link[^>]*>//' build/bundled/index.html",
-    "lighthouse": "node_modules/.bin/lighthouse http://localhost:8080"
+    "lighthouse": "node_modules/.bin/lighthouse http://localhost:8080",
+    "release": "npm run build && node_modules/.bin/firebase deploy"
   },
   "author": {
     "name": "Matthew Green",
