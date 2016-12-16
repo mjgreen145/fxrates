@@ -1,1 +1,5 @@
-{}
+{
+  "projects": {
+    "default": "fxrates-ab5a3"
+  }
+}
