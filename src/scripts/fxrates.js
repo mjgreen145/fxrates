@@ -9,6 +9,8 @@ class FXApp {
         this.baseCurrency = this.baseCurrencySelect.value;
         this.quoteCurrency = this.quoteCurrencySelect.value;
 
+        this.offlineToast = document.getElementById('offline-toast');
+
         this.rates = {};
 
         this.addEventListeners();
@@ -26,6 +28,9 @@ class FXApp {
 
         this.baseCurrencySelect.addEventListener('change', this.onCurrencySelectChange.bind(this));
         this.quoteCurrencySelect.addEventListener('change', this.onCurrencySelectChange.bind(this));
+
+        window.addEventListener('offline', this.showOfflineToast.bind(this));
+        window.addEventListener('online', this.hideOfflineToast.bind(this));
     }
 
     onInputChange(event) {
@@ -61,13 +66,12 @@ class FXApp {
             return;
         }
         inputVal = parseFloat(inputVal.replace(/[^\d\.]/g, ''), 10);
-        console.log(inputVal);
         if (this.rates[fromCurrency]) {
             inputToUpdate.value = (this.rates[fromCurrency][toCurrency] * inputVal).toFixed(2).toString();
         } else {
             this.fetchRates(fromCurrency).then(() => {
                 inputToUpdate.value = (this.rates[fromCurrency][toCurrency] * inputVal).toFixed(2).toString();
-            });
+            }).catch(() => {});
         }
     }
 
@@ -81,7 +85,18 @@ class FXApp {
             setTimeout(() => {
                 this.removeRates(currency)
             }, 300000);
+        }).catch(() => {
+            this.showOfflineToast();
+            return Promise.reject('offline');
         });
+    }
+
+    showOfflineToast() {
+        this.offlineToast.classList.add('active');
+    }
+
+    hideOfflineToast() {
+        this.offlineToast.classList.remove('active');
     }
 
     removeRates(currency) {
@@ -92,14 +107,14 @@ class FXApp {
 const fxApp = new FXApp();
 
 // Register a service worker
-// if ('serviceWorker' in navigator) {
-//   window.addEventListener('load', function() {
-//     navigator.serviceWorker.register('/sw.js').then(function(registration) {
-//       // Registration was successful
-//       console.log('ServiceWorker registration successful with scope: ', registration.scope);
-//     }).catch(function(err) {
-//       // registration failed :(
-//       console.log('ServiceWorker registration failed: ', err);
-//     });
-//   });
-// }
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
+      // Registration was successful
+      console.log('ServiceWorker registration successful with scope: ', registration.scope);
+    }).catch(function(err) {
+      // registration failed :(
+      console.log('ServiceWorker registration failed: ', err);
+    });
+  });
+}

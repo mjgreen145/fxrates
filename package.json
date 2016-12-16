@@ -8,11 +8,13 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "lighthouse": "^1.1.6"
+    "firebase-tools": "^3.2.0",
+    "lighthouse": "^1.1.6",
+    "polymer-cli": "^0.17.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lighthouse": "node_modules/.bin/lighthouse http://localhost:8080 --output-path=./lighthouse.html"
+    "build": "node_modules/.bin/polymer build --insert-dependency-links false && cp manifest.json ./build/bundled",
+    "lighthouse": "node_modules/.bin/lighthouse http://localhost:8080"
   },
   "author": "",
   "license": "ISC"
