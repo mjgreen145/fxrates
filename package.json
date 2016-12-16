@@ -17,6 +17,9 @@
     "stripImport": "sed -i -e 's/<link[^>]*>//' build/bundled/index.html",
     "lighthouse": "node_modules/.bin/lighthouse http://localhost:8080"
   },
-  "author": "",
+  "author": {
+    "name": "Matthew Green",
+    "email": "mjgreen145@gmail.com",
+  },
   "license": "ISC"
 }
