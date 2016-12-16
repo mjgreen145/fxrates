@@ -3,5 +3,6 @@
   "short_name": "fxrates",
   "description": "Currency converter calculator",
   "start_url": "/",
-  "display": "standalone"
+  "display": "standalone",
+  "theme_color": "#1298d4"
 }
