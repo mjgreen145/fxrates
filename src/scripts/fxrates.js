@@ -124,6 +124,19 @@ class FXApp {
                         }
                     }
                 ],
+                shippingOptions: [
+                    {
+                        id: 'store',
+                        label: 'Store Pick-up',
+                        amount: {currency: 'USD', value: '0.00'},
+                        selected: true
+                    },
+                    {
+                        id: 'delivery',
+                        label: 'Next Day Delivery',
+                        amount: {currency: this.baseCurrency, value: '5.00'}
+                    }
+                ],
                 total: {
                     label: 'Total',
                     amount: {
@@ -132,7 +145,7 @@ class FXApp {
                     }
                 }
             };
-            console.log(methodData, details);
+
             const request = new PaymentRequest(methodData, details);
             request.show().then((paymentResponse) => {
                 paymentResponse.complete('success');
