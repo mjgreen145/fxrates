@@ -126,31 +126,65 @@ class FXApp {
                 ],
                 shippingOptions: [
                     {
-                        id: 'store',
-                        label: 'Store Pick-up',
-                        amount: {currency: 'USD', value: '0.00'},
+                        id: 'delivery',
+                        label: 'Next Day Delivery',
+                        amount: {currency: this.baseCurrency, value: '5.00'},
                         selected: true
                     },
                     {
-                        id: 'delivery',
-                        label: 'Next Day Delivery',
-                        amount: {currency: this.baseCurrency, value: '5.00'}
+                        id: 'store',
+                        label: 'Store Pick-up',
+                        amount: {currency: this.baseCurrency, value: '0.00'},
                     }
                 ],
                 total: {
                     label: 'Total',
                     amount: {
                         currency: this.baseCurrency,
-                        value: this.baseInput.value
+                        value: (parseFloat(this.baseInput.value) + 5).toString()
                     }
                 }
             };
+            const options = {
+                requestShipping: true,
+                shippingType: 'shipping'
+            }
 
-            const request = new PaymentRequest(methodData, details);
+            const request = new PaymentRequest(methodData, details, options);
+            request.addEventListener('shippingoptionchange', e => {
+              e.updateWith(((details, shippingOption) => {
+                var selectedShippingOption;
+                var otherShippingOption;
+                if (shippingOption === 'store') {
+                  selectedShippingOption = details.shippingOptions[1];
+                  otherShippingOption = details.shippingOptions[0];
+                  details.total.amount.value = this.baseInput.value;
+                } else {
+                  selectedShippingOption = details.shippingOptions[0];
+                  otherShippingOption = details.shippingOptions[1];
+                  details.total.amount.value = (parseFloat(this.baseInput.value) + 5).toString();
+                }
+                if (details.displayItems.length === 2) {
+                  details.displayItems.splice(1, 0, selectedShippingOption);
+                } else {
+                  details.displayItems.splice(1, 1, selectedShippingOption);
+                }
+                selectedShippingOption.selected = true;
+                otherShippingOption.selected = false;
+                return Promise.resolve(details);
+              })(details, request.shippingOption));
+            });
             request.show().then((paymentResponse) => {
+                const paymentData = {
+                    method: paymentResponse.methodName,
+                    details: paymentResponse.details.toJSON(),
+                    address: paymentResponse.shippingAddress.toJSON(),
+                    shippingOption: paymentResponse.shippingOption
+                };
+                console.log(paymentData);
                 paymentResponse.complete('success');
             }).catch((error) => {
-                console.error('Uh oh, something bad happened', error.message);
+                console.error('Uh oh, something bad happened', error);
             });
         }
     }
