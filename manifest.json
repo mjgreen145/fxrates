@@ -1,6 +1,6 @@
 {
   "name": "fxrates",
-  "short_name": "fxrates",
+  "short_name": "FX Rates",
   "description": "Currency converter calculator",
   "start_url": "/",
   "display": "standalone",
