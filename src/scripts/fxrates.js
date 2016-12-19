@@ -204,10 +204,11 @@ class FXApp {
               })(details, request.shippingOption));
             });
             request.show().then((paymentResponse) => {
+                console.log(paymentResponse);
                 const paymentData = {
                     method: paymentResponse.methodName,
-                    details: paymentResponse.details.toJSON(),
-                    address: paymentResponse.shippingAddress.toJSON(),
+                    details: paymentResponse.details,
+                    address: paymentResponse.shippingAddress,
                     shippingOption: paymentResponse.shippingOption
                 };
                 console.log(paymentData);
