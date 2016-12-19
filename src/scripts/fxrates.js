@@ -61,7 +61,7 @@ class FXApp {
             this.updateValue(this.quoteInput, this.baseInput.value, this.baseCurrency, this.quoteCurrency);
         } else {
             this.quoteCurrency = event.target.value;
-            this.updateValue(this.baseInput, this.quoteInput.value, this.quoteCurrency, this.baseCurrency);
+            this.updateValue(this.quoteInput, this.baseInput.value, this.baseCurrency, this.quoteCurrency);
         }
     }
 
@@ -106,35 +106,6 @@ class FXApp {
     removeRates(currency) {
         delete this.rates[currency];
     }
-
-    // onNotifyButtonClicked() {
-    //     const active = this.notifyButton.classList.toggle('active');
-    //     if(active && this.messaging) {
-    //         this.messaging.requestPermission().then(() => {
-    //             this.messaging.getToken()
-    //                 .then((currentToken) => {
-    //                   if (currentToken) {
-    //                     sendTokenToServer(currentToken);
-    //                     updateUIForPushEnabled(currentToken);
-    //                   } else {
-    //                     // Show permission request.
-    //                     console.log('No Instance ID token available. Request permission to generate one.');
-    //                     // Show permission UI.
-    //                     updateUIForPushPermissionRequired();
-    //                     setTokenSentToServer(false);
-    //                   }
-    //                 })
-    //                 .catch((err) => {
-    //                   console.log('An error occurred while retrieving token. ', err);
-    //                   showToken('Error retrieving Instance ID token. ', err);
-    //                   setTokenSentToServer(false);
-    //                 });
-    //         }).catch((err) => {
-    //           console.log('Unable to get permission to notify.', err);
-    //           this.notifyButton.classList.toggle('active');
-    //         });
-    //     }
-    // }
 
     onButtonClicked() {
         if(window.PaymentRequest) {
@@ -234,13 +205,3 @@ if ('serviceWorker' in navigator) {
     });
   });
 }
-
-// window.addEventListener('load', () => {
-//     var config = {
-//         apiKey: 'AIzaSyDJTpbpXnJDj-JaO7gCIfsOH3yFD-Nernc',
-//         messagingSenderId: '103953800507',
-//     };
-//     firebase.initializeApp(config);
-//
-//     fxApp.messaging = firebase.messaging();
-// });
