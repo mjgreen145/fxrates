@@ -223,7 +223,7 @@ class FXApp {
 
 const fxApp = new FXApp();
 
-Register a service worker
+// Register a service worker
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function() {
     navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
