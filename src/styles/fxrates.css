@@ -110,25 +110,6 @@ body {
   cursor: pointer;
 }
 
-.notify-button {
-  width: 25px;
-  height: 25px;
-}
-
-.notify-button span {
-  display: none;
-}
-
-.notify-button.active span {
-  display: inline;
-}
-
-.message {
-  display: inline-block;
-  vertical-align: top;
-  margin-top: 5px;
-}
-
 .toast {
   opacity: 0;
   transform: translateY(30px);

@@ -12,7 +12,6 @@ class FXApp {
         this.offlineToast = document.getElementById('offline-toast');
 
         this.buyButton = document.getElementById('buy-button');
-        this.notifyButton = document.getElementById('notify-button');
 
         this.rates = {};
 
@@ -33,7 +32,6 @@ class FXApp {
         this.quoteCurrencySelect.addEventListener('change', this.onCurrencySelectChange.bind(this));
 
         this.buyButton.addEventListener('click', this.onButtonClicked.bind(this));
-        this.notifyButton.addEventListener('click', this.onNotifyButtonClicked.bind(this));
 
         window.addEventListener('offline', this.showOfflineToast.bind(this));
         window.addEventListener('online', this.hideOfflineToast.bind(this));
