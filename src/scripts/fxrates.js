@@ -12,6 +12,7 @@ class FXApp {
         this.offlineToast = document.getElementById('offline-toast');
 
         this.buyButton = document.getElementById('buy-button');
+        this.notifyButton = document.getElementById('notify-button');
 
         this.rates = {};
 
@@ -32,6 +33,7 @@ class FXApp {
         this.quoteCurrencySelect.addEventListener('change', this.onCurrencySelectChange.bind(this));
 
         this.buyButton.addEventListener('click', this.onButtonClicked.bind(this));
+        this.notifyButton.addEventListener('click', this.onNotifyButtonClicked.bind(this));
 
         window.addEventListener('offline', this.showOfflineToast.bind(this));
         window.addEventListener('online', this.hideOfflineToast.bind(this));
@@ -106,6 +108,35 @@ class FXApp {
     removeRates(currency) {
         delete this.rates[currency];
     }
+
+    // onNotifyButtonClicked() {
+    //     const active = this.notifyButton.classList.toggle('active');
+    //     if(active && this.messaging) {
+    //         this.messaging.requestPermission().then(() => {
+    //             this.messaging.getToken()
+    //                 .then((currentToken) => {
+    //                   if (currentToken) {
+    //                     sendTokenToServer(currentToken);
+    //                     updateUIForPushEnabled(currentToken);
+    //                   } else {
+    //                     // Show permission request.
+    //                     console.log('No Instance ID token available. Request permission to generate one.');
+    //                     // Show permission UI.
+    //                     updateUIForPushPermissionRequired();
+    //                     setTokenSentToServer(false);
+    //                   }
+    //                 })
+    //                 .catch((err) => {
+    //                   console.log('An error occurred while retrieving token. ', err);
+    //                   showToken('Error retrieving Instance ID token. ', err);
+    //                   setTokenSentToServer(false);
+    //                 });
+    //         }).catch((err) => {
+    //           console.log('Unable to get permission to notify.', err);
+    //           this.notifyButton.classList.toggle('active');
+    //         });
+    //     }
+    // }
 
     onButtonClicked() {
         if(window.PaymentRequest) {
@@ -192,15 +223,25 @@ class FXApp {
 
 const fxApp = new FXApp();
 
-// Register a service worker
-// if ('serviceWorker' in navigator) {
-//   window.addEventListener('load', function() {
-//     navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
-//       // Registration was successful
-//       console.log('ServiceWorker registration successful with scope: ', registration.scope);
-//     }).catch(function(err) {
-//       // registration failed :(
-//       console.log('ServiceWorker registration failed: ', err);
-//     });
-//   });
-// }
+Register a service worker
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
+      // Registration was successful
+      console.log('ServiceWorker registration successful with scope: ', registration.scope);
+    }).catch(function(err) {
+      // registration failed :(
+      console.log('ServiceWorker registration failed: ', err);
+    });
+  });
+}
+
+// window.addEventListener('load', () => {
+//     var config = {
+//         apiKey: 'AIzaSyDJTpbpXnJDj-JaO7gCIfsOH3yFD-Nernc',
+//         messagingSenderId: '103953800507',
+//     };
+//     firebase.initializeApp(config);
+//
+//     fxApp.messaging = firebase.messaging();
+// });

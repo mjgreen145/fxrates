@@ -103,10 +103,30 @@ body {
   border: none;
   font-size: 22px;
   background-color: #fe4d63;
+  margin-bottom: 20px;
 }
 
 .buy-button:hover {
   cursor: pointer;
+}
+
+.notify-button {
+  width: 25px;
+  height: 25px;
+}
+
+.notify-button span {
+  display: none;
+}
+
+.notify-button.active span {
+  display: inline;
+}
+
+.message {
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 5px;
 }
 
 .toast {
